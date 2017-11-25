@@ -36,7 +36,7 @@ run_segment() {
 	fi
 
 	if [ -n "$wan_ip" ]; then
-		echo "ⓦ ${wan_ip}"
+		echo "#[fg=colour82,bold]ⓦ #[fg=colour253]${wan_ip}"
 	fi
 
 	return 0

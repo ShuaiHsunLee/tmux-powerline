@@ -51,7 +51,7 @@ __parse_git_branch() {
 	# Clean off unnecessary information.
 	branch=${branch#refs\/heads\/}
 
-	echo  -n "#[fg=colour${git_colour}]${branch_symbol} #[fg=colour${TMUX_POWERLINE_CUR_SEGMENT_FG}]${branch}"
+	echo  -n "#[fg=colour${git_colour},bold]${branch_symbol} #[fg=colour${TMUX_POWERLINE_CUR_SEGMENT_FG},bold]${branch}"
 }
 
 # Show SVN branch.
@@ -71,7 +71,7 @@ __parse_svn_branch() {
 	local svn_url=$(echo "${svn_info}" | sed -ne 's#^URL: ##p')
 
 	local branch=$(echo "${svn_url}" | egrep -o '[^/]+$')
-	echo "#[fg=colour${svn_colour}]${branch_symbol} #[fg=colour${TMUX_POWERLINE_CUR_SEGMENT_FG}]${branch}"
+	echo "#[fg=colour${svn_colour},bold]${branch_symbol} #[fg=colour${TMUX_POWERLINE_CUR_SEGMENT_FG},bold]${branch}"
 }
 
 __parse_hg_branch() {
@@ -86,5 +86,5 @@ __parse_hg_branch() {
 	fi
 
 	local branch=$(echo "$summary" | grep 'branch:' | cut -d ' ' -f2)
-	echo  "#[fg=colour${hg_colour}]${branch_symbol} #[fg=colour${TMUX_POWERLINE_CUR_SEGMENT_FG}]${branch}"
+	echo  "#[fg=colour${hg_colour},bold]${branch_symbol} #[fg=colour${TMUX_POWERLINE_CUR_SEGMENT_FG},bold]${branch}"
 }

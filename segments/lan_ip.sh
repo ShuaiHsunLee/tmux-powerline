@@ -27,6 +27,6 @@ run_segment() {
 		done
 	fi
 
-	echo "ⓛ ${lan_ip-N/a}"
+	echo "#[fg=colour82,bold]ⓛ #[fg=colour253]${lan_ip-N/a}"
 	return 0
 }
