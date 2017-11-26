@@ -5,6 +5,7 @@ TMUX_POWERLINE_SEG_BATTERY_NUM_HEARTS_DEFAULT=5
 
 HEART_FULL="⚡"
 HEART_EMPTY=" "
+CHARGE="🔌"
 
 generate_segmentrc() {
 	read -d '' rccontents  << EORC
@@ -32,9 +33,9 @@ run_segment() {
                 battery_status=$(echo $battery_status | sed s/+//)  # get rid of '+'
                 blink=$(expr $(date "+%s") % 2) # make a blink thunderboltz
                 if [ $blink == 1 ]; then
-                    output="${HEART_FULL} #[fg=colour3,bold]${battery_status}%"
+                    output="${CHARGE} #[fg=colour46,bold]${battery_status}%"
                 else
-                    output="${HEART_EMPTY} #[fg=white,bold]${battery_status}%"
+                    output="${CHARGE} #[fg=white,bold]${battery_status}%"
                 fi
             else  # non-charging
                 output="${HEART_FULL} ${battery_status}%"
