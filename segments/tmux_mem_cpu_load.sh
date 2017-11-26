@@ -10,6 +10,8 @@ run_segment() {
 
 	stats=$(tmux-mem-cpu-load)
 
+    load=$(echo $stats | sed 's/.*% \([0-9\. ]*\)$/\1/')
+
     mem=$(echo $stats | sed 's/\([0-9]*\/[0-9]*MB\).*/\1/')
 
     cpu=$(echo $stats | sed 's/.* \([0-9\.]*%\).*/\1/')
@@ -44,10 +46,27 @@ run_segment() {
         cpu=" $cpu"
     fi
 
-    load=$(echo $stats | sed 's/.*% \([0-9\. ]*\)$/\1/')
+    cpu_tmp=$(istats cpu | sed 's/.* \([0-9\.]*°C\) .*/\1/')
+    cpu_tmp_num=$(echo $cpu_tmp | sed 's/\([0-9]*\)\.[0-9]*°C/\1/')
+    if [ $cpu_tmp_num -lt 41 ]; then
+        c='#[fg=colour46]'
+    elif [ $cpu_tmp_num -gt 40 ] && [ $cpu_tmp_num -lt 51 ]; then
+        c='#[fg=colour118]'
+    elif [ $cpu_tmp_num -gt 50 ] && [ $cpu_tmp_num -lt 61 ]; then
+        c='#[fg=colour11]'
+    elif [ $cpu_tmp_num -gt 60 ] && [ $cpu_tmp_num -lt 71 ]; then
+        c='#[fg=colour208]'
+    else
+        c='#[fg=colour1]'
+    fi
+    cpu_tmp_len=${#cpu_tmp}
+    # make space consist
+    if [ $cpu_tmp_len -eq 6 ]; then
+        cpu_tmp=" $cpu_tmp"
+    fi
 
 	if [ -n "$stats" ]; then
-		echo "#[fg=white]$load #[fg=white] #[fg=colour11]$mem #[fg=white] #[fg=colour82,bold]$cpu $cpu_bar"
+		echo "#[fg=white]$load #[fg=white] #[fg=colour11]$mem #[fg=white] #[fg=colour82,bold]$cpu $cpu_bar $c$cpu_tmp"
 	fi
 	return 0
 }
