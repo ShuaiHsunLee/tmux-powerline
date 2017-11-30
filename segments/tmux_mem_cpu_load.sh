@@ -17,7 +17,7 @@ run_segment() {
     cpu=$(echo $stats | sed 's/.* \([0-9\.]*%\).*/\1/')
     cpu_int=$(echo $stats | sed 's/.* \([0-9]*\)\.[0-9]*%.*/\1/')
     # cpu_bar number
-    if [ $cpu_int -gt 0 ] && [ $cpu_int -lt 10 ]; then
+    if [ $cpu_int -gt -1 ] && [ $cpu_int -lt 10 ]; then
         cpu_bar="[#[fg=colour46]▍         #[fg=colour82,bold]]"
     elif [ $cpu_int -gt 9 ] && [ $cpu_int -lt 20 ]; then
         cpu_bar="[#[fg=colour46]▍#[fg=colour118]▍        #[fg=colour82,bold]]"
