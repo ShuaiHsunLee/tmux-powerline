@@ -41,7 +41,7 @@ __status() {
 
 __wifiname() {
     status=$(networksetup -getairportpower en0 | sed 's/.*: \([a-zA-Z\.]*\)$/\1/')
-    wifiname=$(networksetup -getairportnetwork en0 | sed 's/.*: \([a-zA-Z\.]*\)$/\1/')
+    wifiname=$(networksetup -getairportnetwork en0 | sed 's/.*: \(.*\)$/\1/')
     if [ $status == "On" ]; then
         echo $wifiname
     else
