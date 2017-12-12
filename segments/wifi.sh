@@ -33,9 +33,9 @@ run_segment() {
 __status() {
     status=$(networksetup -getairportpower en0 | sed 's/.*: \([a-zA-Z\.]*\)$/\1/')
     if [ $status == "On" ]; then
-        echo "◉ "
+        echo "#[fg=colour46,bold]◉ #[fg=white,bold]"
     else
-        echo "◎ "
+        echo "#[fg=red,bold]◎ #[fg=white,bold]"
     fi
 }
 
