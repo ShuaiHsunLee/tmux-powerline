@@ -15,22 +15,8 @@ __process_settings() {
 		export TMUX_POWERLINE_SEG_WIFI_FORMAT="${TMUX_POWERLINE_SEG_WIFI_FORMAT_DEFAULT}"
 	fi
 }
-run_segment() {
-	__process_settings
-	local opts=""
-	if [ "$TMUX_POWERLINE_SEG_WIFI_FORMAT" == "status" ]; then
-        wifi=$(__status)
-    elif [ "$TMUX_POWERLINE_SEG_WIFI_FORMAT" == "wifiname" ]; then
-        wifi=$(__wifiname)
-    else
-        wifi="$(__status)$(__wifiname)"
-	fi
 
-	echo $wifi
-	return 0
-}
-
-__status() {
+__wifistatus() {
     status=$(networksetup -getairportpower en0 | sed 's/.*: \([a-zA-Z\.]*\)$/\1/')
     if [ $status == "On" ]; then
         echo "#[fg=colour46,bold]◉ #[fg=white,bold]"
@@ -47,4 +33,20 @@ __wifiname() {
     else
         echo "OFF"
     fi
+}
+
+
+run_segment() {
+	__process_settings
+	local opts=""
+	if [ "$TMUX_POWERLINE_SEG_WIFI_FORMAT" == "status" ]; then
+        wifi=$(__wifistatus)
+    elif [ "$TMUX_POWERLINE_SEG_WIFI_FORMAT" == "wifiname" ]; then
+        wifi=$(__wifiname)
+    else
+        wifi="$(__wifistatus)$(__wifiname)"
+	fi
+
+	echo $wifi
+	return 0
 }
