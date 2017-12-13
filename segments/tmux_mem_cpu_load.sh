@@ -12,6 +12,24 @@ run_segment() {
 
     load=$(echo $stats | sed 's/.*% \([0-9\. ]*\)$/\1/')
 
+    load1=$(echo $load | sed 's/\([0-9\.]*\) \([0-9\.]*\) \([0-9\.]*\)/\1/')
+    load2=$(echo $load | sed 's/\([0-9\.]*\) \([0-9\.]*\) \([0-9\.]*\)/\2/')
+    load3=$(echo $load | sed 's/\([0-9\.]*\) \([0-9\.]*\) \([0-9\.]*\)/\3/')
+    load1_len=${#load1}
+    load2_len=${#load2}
+    load3_len=${#load3}
+    if [ $load1_len -eq 3 ]; then
+        load1="${load1}0"
+    fi
+    if [ $load2_len -eq 3 ]; then
+        load2="${load2}0"
+    fi
+    if [ $load3_len -eq 3 ]; then
+        load3="${load3}0"
+    fi
+
+    load="$load1 $load2 $load3"
+
     mem=$(echo $stats | sed 's/\([0-9]*\/[0-9]*MB\).*/\1/')
 
     cpu=$(echo $stats | sed 's/.* \([0-9\.]*%\).*/\1/')
