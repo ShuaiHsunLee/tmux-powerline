@@ -3,7 +3,7 @@
 TMUX_POWERLINE_SEG_BATTERY_TYPE_DEFAULT="percentage"
 TMUX_POWERLINE_SEG_BATTERY_NUM_HEARTS_DEFAULT=5
 
-HEART_FULL="⚡"
+HEART_FULL="🔋"
 HEART_EMPTY=" "
 CHARGE="🔌"
 
@@ -96,7 +96,7 @@ __battery_osx() {
                     else
                         echo -n "#[fg=white,bold]"
                     fi
-                else  # 51~100%
+                else  # 61~100%
                     echo -n "#[fg=colour46,bold]"
                 fi
                 echo "$charge"
